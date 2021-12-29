@@ -15,15 +15,12 @@ const Book = ({ book }) => {
             <strong>{book.title}</strong>
           </Card.Title>
         </Link>
-
         <Card.Text as='div'>
           <div className='my-3'>{book.author}</div>
         </Card.Text>
-
         <Card.Text as='div'>
           <Rating value={book.rating} text={`${book.numReviews} reviews`} />
         </Card.Text>
-
         <Card.Text as='h5'>${book.price}</Card.Text>
       </Card.Body>
     </Card>

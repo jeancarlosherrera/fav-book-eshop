@@ -33,7 +33,7 @@ const books = [
     firstEdition: 2009,
     category: 'Novel',
     price: 18.99,
-    countInStock: 4,
+    countInStock: 0,
     image: '/images/island.jpeg',
     rating: 3.5,
     numReviews: 6,

@@ -11,11 +11,11 @@ app.get('/api/books', (req, res) => {
   res.json(books);
 });
 
-app.get('/books/:id', (req, res) => {
+app.get('/api/books/:id', (req, res) => {
   const selectedBook = books.find((b) => b._id === req.params.id);
   res.json(selectedBook);
 });
 
-app.listen(3000, () => {
+app.listen(8080, () => {
   console.log('Listening');
 });

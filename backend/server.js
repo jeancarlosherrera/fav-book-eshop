@@ -1,6 +1,6 @@
-const express = require('express');
-const dotenv = require('dotenv');
-const books = require('./data/books');
+import express from 'express';
+import dotenv from 'dotenv';
+import books from './data/books.js';
 
 dotenv.config();
 

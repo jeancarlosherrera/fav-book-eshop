@@ -23,10 +23,10 @@ const BookScreen = () => {
         Go Back
       </Link>
       <Row>
-        <Col md={6}>
+        <Col md={4}>
           <Image src={featuredBook.image} alt={featuredBook.title} fluid />
         </Col>
-        <Col md={3}>
+        <Col md={4}>
           <ListGroup variant='flush'>
             <ListGroup.Item>
               <h3>{featuredBook.title}</h3>

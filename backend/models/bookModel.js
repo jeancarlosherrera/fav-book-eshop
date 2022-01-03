@@ -33,21 +33,26 @@ const bookSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    price: {
-      type: Number,
-      required: true,
-      default: 0,
-    },
-    image: {
-      type: String,
-      required: true,
-    },
     pages: {
       type: Number,
       required: true,
     },
     firstEdition: {
       type: Number,
+      required: true,
+    },
+    price: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+    countInStock: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+    image: {
+      type: String,
       required: true,
     },
     synopsis: {
@@ -61,11 +66,6 @@ const bookSchema = new mongoose.Schema(
       default: 0,
     },
     numReviews: {
-      type: Number,
-      required: true,
-      default: 0,
-    },
-    countInStock: {
       type: Number,
       required: true,
       default: 0,

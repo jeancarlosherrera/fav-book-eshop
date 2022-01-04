@@ -1,7 +1,12 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-import books from './data/books.js';
+import bookRoutes from './routes/bookRoutes.js';
+
+// import users from './data/users.js';
+// import User from './models/userModel.js';
+// import Book from './models/bookModel.js';
+// import Order from './models/orderModel.js';
 
 dotenv.config();
 
@@ -12,20 +17,40 @@ async function connectDB() {
   console.log('MongoDB Connected');
 }
 
+// Data Seeder
+// const importData = async () => {
+//   try {
+//     await Order.deleteMany();
+//     await Book.deleteMany();
+//     await User.deleteMany();
+//     const createdUsers = await User.insertMany(users);
+//     const adminUser = createdUsers[0]._id;
+//     const sampleBooks = books.map((book) => {
+//       return { ...book, user: adminUser };
+//     });
+//     await Book.insertMany(sampleBooks);
+//     console.log('Data Imported!');
+//   } catch (error) {}
+// };
+
+// const destroyData = async () => {
+//   try {
+//     await Order.deleteMany();
+//     await Book.deleteMany();
+//     await User.deleteMany();
+//     console.log('Data Destroyed!');
+//   } catch (error) {}
+// };
+
+// importData();
+
 const app = express();
 
 app.get('/', (req, res) => {
   res.send('Hello!');
 });
 
-app.get('/api/books', (req, res) => {
-  res.json(books);
-});
-
-app.get('/api/books/:id', (req, res) => {
-  const selectedBook = books.find((b) => b._id === req.params.id);
-  res.json(selectedBook);
-});
+app.use('/api/books', bookRoutes);
 
 const PORT = process.env.PORT || 8080;
 

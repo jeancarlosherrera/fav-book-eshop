@@ -20,7 +20,8 @@ router.get(
     if (selectedBook) {
       res.json(selectedBook);
     } else {
-      res.status(404).json({ message: 'Book not found' });
+      res.status(404);
+      throw new Error('Book not found');
     }
   })
 );

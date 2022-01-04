@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import bookRoutes from './routes/bookRoutes.js';
+import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 
 // import users from './data/users.js';
 // import User from './models/userModel.js';
@@ -46,11 +47,17 @@ async function connectDB() {
 
 const app = express();
 
+// Routes
 app.get('/', (req, res) => {
   res.send('Hello!');
 });
 
 app.use('/api/books', bookRoutes);
+
+// Error Handlers
+app.use(notFound);
+
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 8080;
 

@@ -1,15 +1,26 @@
-import React, { useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap';
+import {
+  Row,
+  Col,
+  Image,
+  ListGroup,
+  Card,
+  Button,
+  Form,
+} from 'react-bootstrap';
 import Rating from '../components/Rating';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { listBookDetails } from '../actions/bookActions';
 
 const BookScreen = () => {
+  const [qty, setQty] = useState(0);
+
   const dispatch = useDispatch();
   const params = useParams();
+  const navigate = useNavigate();
 
   const bookDetails = useSelector((state) => state.bookDetails);
   const { loading, error, featuredBook } = bookDetails;
@@ -17,6 +28,10 @@ const BookScreen = () => {
   useEffect(() => {
     dispatch(listBookDetails(params.id));
   }, [dispatch, params]);
+
+  const addToCartHandler = () => {
+    navigate(`/cart/${params.id}?qty=${qty}`);
+  };
 
   if (!featuredBook) return null;
 
@@ -70,9 +85,32 @@ const BookScreen = () => {
                     </Col>
                   </Row>
                 </ListGroup.Item>
+                {featuredBook.countInStock > 0 && (
+                  <ListGroup.Item>
+                    <Row>
+                      <Col>Qty</Col>
+                      <Col>
+                        <Form.Control
+                          as='select'
+                          value={qty}
+                          onChange={(e) => setQty(e.target.value)}
+                        >
+                          {[...Array(featuredBook.countInStock).keys()].map(
+                            (el) => (
+                              <option key={el + 1} value={el + 1}>
+                                {el + 1}
+                              </option>
+                            )
+                          )}
+                        </Form.Control>
+                      </Col>
+                    </Row>
+                  </ListGroup.Item>
+                )}
                 <ListGroup.Item>
                   <div className='d-grid gap-2'>
                     <Button
+                      onClick={addToCartHandler}
                       type='button'
                       disabled={featuredBook.countInStock === 0}
                     >

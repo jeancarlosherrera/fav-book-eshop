@@ -1,29 +1,9 @@
 import express from 'express';
-import asyncHandler from 'express-async-handler';
-import Book from '../models/bookModel.js';
 const router = express.Router();
+import { getBooks, getBookById } from '../controllers/bookControllers.js';
 
-// Fetch all products
-router.get(
-  '/',
-  asyncHandler(async (req, res) => {
-    const allBooks = await Book.find({});
-    res.json(allBooks);
-  })
-);
+router.route('/').get(getBooks);
 
-// Fetch single product
-router.get(
-  '/:id',
-  asyncHandler(async (req, res) => {
-    const selectedBook = await Book.findById(req.params.id);
-    if (selectedBook) {
-      res.json(selectedBook);
-    } else {
-      res.status(404);
-      throw new Error('Book not found');
-    }
-  })
-);
+router.route('/:id').get(getBookById);
 
 export default router;

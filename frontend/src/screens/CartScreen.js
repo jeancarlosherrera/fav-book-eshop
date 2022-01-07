@@ -1,11 +1,5 @@
 import { useEffect } from 'react';
-import {
-  Link,
-  unstable_HistoryRouter,
-  useLocation,
-  useNavigate,
-  useParams,
-} from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Row,
@@ -55,7 +49,7 @@ const CartScreen = () => {
         ) : (
           <ListGroup variant='flush'>
             {cartItems.map((item) => (
-              <ListGroup.Item key='{item.book}'>
+              <ListGroup.Item key={item.book}>
                 <Row>
                   <Col md={2}>
                     <Image src={item.image} alt={item.title} fluid rounded />

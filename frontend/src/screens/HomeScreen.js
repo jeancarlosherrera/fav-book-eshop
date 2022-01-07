@@ -8,7 +8,6 @@ import { listBooks } from '../actions/bookActions';
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
-
   const bookList = useSelector((state) => state.bookList);
   const { loading, error, books } = bookList;
 

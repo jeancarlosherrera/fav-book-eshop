@@ -16,12 +16,10 @@ import Loader from '../components/Loader';
 import { listBookDetails } from '../actions/bookActions';
 
 const BookScreen = () => {
-  const [qty, setQty] = useState(0);
-
+  const [qty, setQty] = useState(1);
   const dispatch = useDispatch();
   const params = useParams();
   const navigate = useNavigate();
-
   const bookDetails = useSelector((state) => state.bookDetails);
   const { loading, error, featuredBook } = bookDetails;
 

@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import bookRoutes from './routes/bookRoutes.js';
+import userRoutes from './routes/userRoutes.js';
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 
 // import users from './data/users.js';
@@ -46,6 +47,7 @@ async function connectDB() {
 // importData();
 
 const app = express();
+app.use(express.json());
 
 // Routes
 app.get('/', (req, res) => {
@@ -53,6 +55,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/books', bookRoutes);
+app.use('/api/users', userRoutes);
 
 // Error Handlers
 app.use(notFound);

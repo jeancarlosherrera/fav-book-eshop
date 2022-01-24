@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import bookRoutes from './routes/bookRoutes.js';
 import userRoutes from './routes/userRoutes.js';
+import orderRoutes from './routes/orderRoutes.js';
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 
 // import users from './data/users.js';
@@ -53,6 +54,7 @@ app.use(express.json());
 // Routes
 app.use('/api/books', bookRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/orders', orderRoutes);
 
 const __dirname = path.resolve();
 if (process.env.NODE_ENV === 'production') {

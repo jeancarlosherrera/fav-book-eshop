@@ -4,11 +4,17 @@ import {
   getBooks,
   getBookById,
   deleteBook,
+  createBook,
+  updateBook,
 } from '../controllers/bookControllers.js';
 import { protect, admin } from '../middleware/authMiddleware.js';
 
-router.route('/').get(getBooks);
+router.route('/').get(getBooks).post(protect, admin, createBook);
 
-router.route('/:id').get(getBookById).delete(protect, admin, deleteBook);
+router
+  .route('/:id')
+  .get(getBookById)
+  .delete(protect, admin, deleteBook)
+  .put(protect, admin, updateBook);
 
 export default router;

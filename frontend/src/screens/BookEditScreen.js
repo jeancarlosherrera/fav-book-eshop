@@ -5,7 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import FormContainer from '../components/FormContainer';
-import { listBookDetails } from '../actions/bookActions';
+import { listBookDetails, updateBook } from '../actions/bookActions';
+import { BOOK_UPDATE_RESET } from '../constants/bookConstants';
 
 const BookEditScreen = () => {
   const params = useParams();
@@ -29,25 +30,51 @@ const BookEditScreen = () => {
   const bookDetails = useSelector((state) => state.bookDetails);
   const { loading, error, featuredBook } = bookDetails;
 
+  const bookUpdate = useSelector((state) => state.bookUpdate);
+  const {
+    loading: loadingUpdate,
+    error: errorUpdate,
+    success: successUpdate,
+  } = bookUpdate;
+
   useEffect(() => {
-    if (!featuredBook.title || featuredBook._id !== bookId) {
-      dispatch(listBookDetails(bookId));
+    if (successUpdate) {
+      dispatch({ type: BOOK_UPDATE_RESET });
+      navigate('/admin/booklist');
     } else {
-      setTitle(featuredBook.title);
-      setAuthor(featuredBook.author);
-      setPages(featuredBook.pages);
-      setFirstEdition(featuredBook.firstEdition);
-      setPrice(featuredBook.price);
-      setCountInStock(featuredBook.countInSock);
-      setImage(featuredBook.image);
-      setSynopsis(featuredBook.synopsis);
-      setRating(featuredBook.rating);
-      setNumReviews(featuredBook.numReviews);
+      if (!featuredBook.title || featuredBook._id !== bookId) {
+        dispatch(listBookDetails(bookId));
+        setTitle(featuredBook.title);
+        setAuthor(featuredBook.author);
+        setPages(featuredBook.pages);
+        setFirstEdition(featuredBook.firstEdition);
+        setPrice(featuredBook.price);
+        setCountInStock(featuredBook.countInSock);
+        setImage(featuredBook.image);
+        setSynopsis(featuredBook.synopsis);
+        setRating(featuredBook.rating);
+        setNumReviews(featuredBook.numReviews);
+      }
     }
-  }, [dispatch, navigate, bookId, featuredBook]);
+  }, [dispatch, navigate, bookId, featuredBook, successUpdate]);
 
   const submitHandler = (e) => {
     e.preventDefault();
+    dispatch(
+      updateBook({
+        _id: bookId,
+        title,
+        author,
+        pages,
+        firstEdition,
+        price,
+        countInStock,
+        image,
+        synopsis,
+        rating,
+        numReviews,
+      })
+    );
   };
 
   return (
@@ -57,6 +84,8 @@ const BookEditScreen = () => {
       </Link>
       <FormContainer>
         <h1>Edit Book</h1>
+        {loadingUpdate && <Loader />}
+        {errorUpdate && <Message variant='danger'>{errorUpdate}</Message>}
         {loading ? (
           <Loader />
         ) : error ? (

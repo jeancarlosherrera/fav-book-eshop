@@ -71,6 +71,30 @@ const books = [
     rating: 4.6,
     numReviews: 8,
   },
+  {
+    title: 'The Invention of Morel',
+    author: 'Adolfo Bioy Casares',
+    pages: 103,
+    firstEdition: 1940,
+    price: 10.99,
+    countInStock: 6,
+    image: '/images/invention.jpeg',
+    synopsis: 'N/A',
+    rating: 4.4,
+    numReviews: 5,
+  },
+  {
+    title: 'Aura',
+    author: 'Carlos Fuentes',
+    pages: 62,
+    firstEdition: 1962,
+    price: 17.99,
+    countInStock: 5,
+    image: '/images/aura.jpeg',
+    synopsis: 'N/A',
+    rating: 4.5,
+    numReviews: 7,
+  },
 ];
 
 export default books;

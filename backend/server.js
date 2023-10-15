@@ -1,11 +1,11 @@
-import express from 'express';
-import path from 'path';
-import dotenv from 'dotenv';
-import mongoose from 'mongoose';
-import bookRoutes from './routes/bookRoutes.js';
-import userRoutes from './routes/userRoutes.js';
-import orderRoutes from './routes/orderRoutes.js';
-import { notFound, errorHandler } from './middleware/errorMiddleware.js';
+import express from 'express'
+import path from 'path'
+import dotenv from 'dotenv'
+import mongoose from 'mongoose'
+import bookRoutes from './routes/bookRoutes.js'
+import userRoutes from './routes/userRoutes.js'
+import orderRoutes from './routes/orderRoutes.js'
+import { notFound, errorHandler } from './middleware/errorMiddleware.js'
 // import books from './data/books.js';
 
 // import users from './data/users.js';
@@ -13,13 +13,13 @@ import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 // import Book from './models/bookModel.js';
 // import Order from './models/orderModel.js';
 
-dotenv.config();
+dotenv.config()
 
 // MongoDB Connection
-connectDB().catch((err) => console.log(err));
+connectDB().catch((err) => console.log(err))
 async function connectDB() {
-  await mongoose.connect(process.env.MONGO_URI);
-  console.log('MongoDB Connected');
+  await mongoose.connect(process.env.MONGO_URI)
+  console.log('MongoDB Connected')
 }
 
 // Data Seeder
@@ -49,35 +49,33 @@ async function connectDB() {
 
 // importData();
 
-const app = express();
-app.use(express.json());
+const app = express()
+app.use(express.json())
 
 // Routes
-app.use('/api/books', bookRoutes);
-app.use('/api/users', userRoutes);
-app.use('/api/orders', orderRoutes);
+app.use('/api/books', bookRoutes)
+app.use('/api/users', userRoutes)
+app.use('/api/orders', orderRoutes)
 
-const __dirname = path.resolve();
+const __dirname = path.resolve()
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, 'frontend/build')));
+  app.use(express.static(path.join(__dirname, 'frontend/build')))
   app.get('*', (req, res) =>
     res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
-  );
+  )
 } else {
   app.get('/', (req, res) => {
-    res.send('Hello!');
-  });
+    res.send('API is running...')
+  })
 }
 
 // Error Handlers
-app.use(notFound);
+app.use(notFound)
 
-app.use(errorHandler);
+app.use(errorHandler)
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8080
 
 app.listen(PORT, () => {
-  console.log(
-    `Server running in ${process.env.NODE_ENV} mode on port ${PORT} `
-  );
-});
+  console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT} `)
+})
